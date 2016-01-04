@@ -11,21 +11,23 @@ class Trackodoro < Sinatra::Base
     erb :'public/index', :layout => :'public/layout'
   end
 
-  get "/protected_pages" do
+  get "/home" do
     check_authentication
-    erb :'public/admin_only_page', :layout => :'public/layout'
+    @user = current_user
+    erb :'public/home', :layout => :'public/layout'
   end
 
   get "/login" do
+    redirect '/home' if warden_handler.authenticated?
     erb :'public/login', :layout => :'public/layout'
   end
 
   post "/session" do
     warden_handler.authenticate!
     if warden_handler.authenticated?
-      redirect "/users/#{warden_handler.user.id}"
+      redirect "/home"
     else
-      redirect "/"
+      redirect "/login"
     end
   end
 
@@ -43,8 +45,11 @@ class Trackodoro < Sinatra::Base
   end
 
   post "/signup" do
-    @user = User.new(:email => params["email"], :password => params["password"])
-    @user.save
+    if(params["email"].match(/\A[^@]+@[^@]+\Z/))
+      # Add :activated = false, and send mail to confirm
+      @user = User.new(:email => params["email"], :password => params["password"])
+      @user.save
+    end
     redirect "/login"
   end
 
