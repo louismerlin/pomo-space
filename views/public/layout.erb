@@ -1,9 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+   <meta charset="utf-8">
    <title>Trackodoro</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Google? Bwaaa. Ugly -->
+   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">　
+   <link rel="stylesheet" href="/assets/normalize.css">
+   <link rel="stylesheet" href="/assets/skeletron.css">
+   <link rel="stylesheet" href="/assets/main.css">
 </head>
 <body>
-  <%= yield %>
+   <div id="container">
+      <div id="header">
+         <nav class="navbar">
+            <div class="container">
+               <ul class="navbar-list">
+                  <li class="navbar-item"><a class="navbar-link" href="/">Home</a></li>
+                  <li class="navbar-item"><a class="navbar-link"  href="/login">Login</a></li>
+                  <li class="navbar-item"><a class="navbar-link"  href="/signup">Sign up</a></li>
+               </ul>
+            </div>
+         </nav>
+      </div>
+      <div id="main-wrapper">
+         <%= yield %>
+      </div>
+   </div>
+   <div id="footer">
+      <p>
+         Copyright &copy; AUTHOR 2016
+         - <a href="http://domain.tld">domain.tld</a>
+         - <a href="mailto:lambda@domain.tld">lambda@domain.tld</a>
+         - <a href="https://github.com/louismerlin/trackodoro" class="footer-link">Source code</a>
+      </p>
+   </div>
 </body>
 </html>
