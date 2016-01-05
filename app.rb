@@ -33,7 +33,7 @@ class Trackodoro < Sinatra::Base
 
   get "/logout" do
     warden_handler.logout
-    redirect '/login'
+    redirect '/'
   end
 
   post "/unauthenticated" do
