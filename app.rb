@@ -8,12 +8,13 @@ class Trackodoro < Sinatra::Base
 
 
   get '/' do
+    @users = User.all
     erb :'public/index', :layout => :'public/layout'
   end
 
   get "/home" do
     check_authentication
-    @user = current_user
+    @user = User[current_user]
     erb :'public/home', :layout => :'public/layout'
   end
 
@@ -47,7 +48,9 @@ class Trackodoro < Sinatra::Base
   post "/signup" do
     if(params["email"].match(/\A[^@]+@[^@]+\Z/))
       # Add :activated = false, and send mail to confirm
-      @user = User.new(:email => params["email"], :password => params["password"])
+      @user = User.new(:email => params["email"])
+      @user.password = params["password"]
+      @user.password_confirmation = params["password"] # yes I know....
       @user.save
     end
     redirect "/login"
@@ -76,7 +79,7 @@ class Trackodoro < Sinatra::Base
 
     def authenticate!
       user = User.first(:email => params["email"])
-      if user && user.authenticate(params["password"])
+      if user && user.authenticate(params["password"])!=nil
         success!(user)
       else
         fail!("Could not log in")
@@ -97,31 +100,5 @@ class Trackodoro < Sinatra::Base
   def current_user
     warden_handler.user
   end
-
-  ###
-  ### DATABASE
-  ###
-
-  class User
-    include DataMapper::Resource
-    include BCrypt
-
-    property :id, Serial, :key => true
-    property :email, String, :length => 3..50
-    property :password, BCryptHash
-
-    def authenticate(attempted_password)
-        if self.password == attempted_password
-          true
-        else
-          false
-        end
-      end
-
-  end
-
-  DataMapper.finalize
-  DataMapper.auto_upgrade!
-
 
 end

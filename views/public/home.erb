@@ -1,2 +1,3 @@
 <h1>You are logged in !</h1>
-<p>This is your home, <%= @user.email %>.</p>
+<p>This is your home, <%= @user[:email] %>.</p>
+<p>Your password is secure ! Here it is : <%= @user[:password_digest] %></p>

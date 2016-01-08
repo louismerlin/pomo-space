@@ -1,2 +1,6 @@
 <h1>Welcome</h1>
 <p>This is Trackodoro !</p>
+<% @users.each do |user| %>
+  <p><%= user[:email] %></p>
+<% end %>
+<p>FIN</p>
