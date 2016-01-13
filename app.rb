@@ -1,5 +1,5 @@
 class Trackodoro < Sinatra::Base
-  register Sinatra::Reloader if CONFIG['development']
+  #register Sinatra::Reloader if CONFIG['development']
   use Rack::Session::Cookie
 
   ###
@@ -8,17 +8,17 @@ class Trackodoro < Sinatra::Base
 
 
   get '/' do
-    @users = User.all
-    erb :'public/index', :layout => :'public/layout'
-  end
-
-  get "/home" do
-    check_authentication
-    @user = User[current_user]
-    erb :'public/home', :layout => :'public/layout'
+    if warden_handler.authenticated?
+      @user = User[current_user]
+      erb :'users/index', :layout => :'users/layout'
+    else
+      @users = User.all
+      erb :'public/index', :layout => :'public/layout'
+    end
   end
 
   get "/login" do
+    session[:temp]!=nil ? @message = session.delete(:temp) : nil
     redirect '/home' if warden_handler.authenticated?
     erb :'public/login', :layout => :'public/layout'
   end
@@ -26,7 +26,7 @@ class Trackodoro < Sinatra::Base
   post "/session" do
     warden_handler.authenticate!
     if warden_handler.authenticated?
-      redirect "/home"
+      redirect "/"
     else
       redirect "/login"
     end
@@ -38,7 +38,8 @@ class Trackodoro < Sinatra::Base
   end
 
   post "/unauthenticated" do
-    redirect "/"
+    session[:temp] = "Wrong username or password"
+    redirect "/login"
   end
 
   get "/signup" do
@@ -79,7 +80,7 @@ class Trackodoro < Sinatra::Base
 
     def authenticate!
       user = User.first(:email => params["email"])
-      if user && user.authenticate(params["password"])!=nil
+      if user!=nil && user.authenticate(params["password"])!=nil
         success!(user)
       else
         fail!("Could not log in")

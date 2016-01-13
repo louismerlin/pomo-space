@@ -1,4 +1,8 @@
 <div id="log-form">
+  <div class="row">
+    <p style="color:red"><%=@message%></p>
+  </div>
+
   <form action="/session" method="post">
     <input class="u-full-width" name="email" placeholder="Email" type="text"/>
     <input class="u-full-width" name="password" placeholder="Password" type="password"/>
