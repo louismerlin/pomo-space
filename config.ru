@@ -5,8 +5,11 @@ require 'yaml'
 require 'sequel'
 require 'sequel_secure_password'
 require 'warden'
+require 'tilt/erb'
 
 CONFIG =  YAML.load_file('config.yml')
+
+use Rack::Session::Cookie, :secret => CONFIG['cookie_secret']
 
 require 'sinatra/reloader' if CONFIG['development']
 

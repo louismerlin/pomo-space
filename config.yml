@@ -1,3 +1,5 @@
+cookie_secret: hellogithub
+
 development: true
 
 database: db/trackodoro.db

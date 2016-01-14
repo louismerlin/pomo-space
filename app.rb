@@ -1,6 +1,5 @@
 class Trackodoro < Sinatra::Base
   #register Sinatra::Reloader if CONFIG['development']
-  use Rack::Session::Cookie
 
   ###
   ### PUBLIC SIDE
