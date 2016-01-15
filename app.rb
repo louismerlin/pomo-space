@@ -1,10 +1,10 @@
 class Trackodoro < Sinatra::Base
   #register Sinatra::Reloader if CONFIG['development']
 
+
   ###
   ### PUBLIC SIDE
   ###
-
 
   get '/' do
     if warden_handler.authenticated?
@@ -54,6 +54,17 @@ class Trackodoro < Sinatra::Base
       @user.save
     end
     redirect "/login"
+  end
+
+
+  ###
+  ### USER SIDE - See '/' for index
+  ###
+
+  get "/add" do
+    check_authentication
+    User[current_user].add_pomodoro(Pomodoro.new())
+    redirect back
   end
 
 

@@ -1,3 +1,4 @@
-<h1>You are logged in !</h1>
-<p>This is your home, <%= @user[:email] %>.</p>
-<p>Your password is secure ! Here it is : <%= @user[:password_digest] %></p>
+<h1>Hello <%= @user.first_name %>.</h1>
+<p>You can check out your progress right here</p>
+<p>You have completed <%= @user.pomodoros.count %> pomodoros.</p>
+<a class="button" href="/add">Add a pomodoro</a>
