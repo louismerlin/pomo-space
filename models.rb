@@ -4,7 +4,7 @@ DB = Sequel.connect('sqlite://db/trackodoro.db')
 
 class User < Sequel::Model
   plugin :secure_password
-  one_to_many :pomodoro
+  one_to_many :pomodoros
 end
 
 DB.create_table! :users do
@@ -18,22 +18,23 @@ end
 
 class Pomodoro < Sequel::Model
   many_to_one :user
-  many_to_many :tag
+  many_to_many :tags
 end
 
-DB.create_table! :pomodoro do
+DB.create_table! :pomodoros do
   primary_key :id
   DateTime    :h
+  foreign_key :user_id
 end
 
 
 # TAGS
 
 class Tag < Sequel::Model
-  many_to_many :pomodoro
+  many_to_many :pomodoros
 end
 
-DB.create_table! :tag do
+DB.create_table! :tags do
   primary_key :id
   String      :title
   #String      :color
