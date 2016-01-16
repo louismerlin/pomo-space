@@ -1,4 +1,8 @@
 <h1>Hello <%= @user.first_name %>.</h1>
 <p>You can check out your progress right here</p>
 <p>You have completed <%= @user.pomodoros.count %> pomodoros.</p>
-<a class="button" href="/add">Add a pomodoro</a>
+<div class="row"><a class="button" href="/add">Add a pomodoro</a>
+</div>
+<div class="row">
+<canvas id="pomodoro_time" width="800" height="400"></canvas>
+</div>
