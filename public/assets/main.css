@@ -81,7 +81,7 @@ h1 {
   margin: 15px auto 15px auto;
 }
 
-#log-form {
+.slim-form {
   max-width: 512px;
   margin: 0 auto;
 }

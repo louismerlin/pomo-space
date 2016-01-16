@@ -1,7 +1,12 @@
 <h1>Hello <%= @user.first_name %>.</h1>
 <p>You can check out your progress right here</p>
 <p>You have completed <%= @user.pomodoros.count %> pomodoros.</p>
-<div class="row"><a class="button" href="/add">Add a pomodoro</a>
+<div class="row">
+  <form action="/add" method="post" class="slim-form">
+    <input class="u-full-width" name="hour" placeholder="Hour" type="number" min="0" max="23"/>
+    <input class="u-full-width" name="minute" placeholder="Minute" type="number" min="0" max="60"/>
+    <button class="u-full-width" type="submit">Create pomodoro</button>
+  </form>
 </div>
 <div class="row">
 <canvas id="pomodoro_time" width="800" height="400"></canvas>
