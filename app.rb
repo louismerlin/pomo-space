@@ -66,7 +66,7 @@ class Trackodoro < Sinatra::Base
     p_time = Time.new().to_a
     p_time[0] = "0"
     p_time[1] = params[:minute].to_s
-    p_time[2] = params[:hour].to_s
+    p_time[3] = params[:day].to_s
     puts Time.local(*p_time)
     User[current_user].add_pomodoro(Pomodoro.new(:h => Time.local(*p_time)))
     redirect back
