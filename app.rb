@@ -8,8 +8,7 @@ class Trackodoro < Sinatra::Base
 
   get '/' do
     if warden_handler.authenticated?
-      @user = User[current_user]
-      erb :'users/index', :layout => :'users/layout'
+      redirect "/home"
     else
       @users = User.all
       erb :'public/index', :layout => :'public/layout'
@@ -60,6 +59,18 @@ class Trackodoro < Sinatra::Base
   ###
   ### USER SIDE - See '/' for index
   ###
+
+  get "/home" do
+    check_authentication
+    @user = User[current_user]
+    now = Time.now()
+    @chart_data = {
+      # CAREFUL NO SUPPORT FOR NEW YEAR !!
+      week_pomodoros: @user.pomodoros.map{|p| p.h.year==now.year && p.h.yday.between?(now.yday, now.yday-6) },
+      week_dates: (Array.new(7) {|d| (now-86400*d).day}).reverse,
+    }
+    erb :'users/index', :layout => :'users/layout'
+  end
 
   post "/add" do
     check_authentication

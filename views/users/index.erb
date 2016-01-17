@@ -1,6 +1,7 @@
 <h1>Hello <%= @user.first_name %>.</h1>
 <p>You can check out your progress right here</p>
-<p>You have completed <%= @user.pomodoros.count %> pomodoros.</p>
+<% c = @chart_data[:week_pomodoros].count %>
+<p>You have completed <%= c > 0 ? c : "no" %> pomodoro<%= "s" if @chart_data[:week_pomodoros].count >1%> this week.</p>
 <div class="row">
   <form action="/add" method="post" class="slim-form">
     <div class="row">
@@ -34,13 +35,13 @@
       </div>
       <div class="four columns">
         <select class="u-full-width" name="day" style="text-align:center">
-          <option value="1">Monday</option>
-          <option value="2">Tuesday</option>
-          <option value="3">Wednesday</option>
-          <option value="4">Thursday</option>
-          <option value="5">Friday</option>
-          <option value="6">Saturday</option>
-          <option value="0">Sunday</option>
+          <option value="1"><%=@chart_data[:week_dates][0]%></option>
+          <option value="2"><%=@chart_data[:week_dates][1]%></option>
+          <option value="3"><%=@chart_data[:week_dates][2]%></option>
+          <option value="4"><%=@chart_data[:week_dates][3]%></option>
+          <option value="5"><%=@chart_data[:week_dates][4]%></option>
+          <option value="6"><%=@chart_data[:week_dates][5]%></option>
+          <option value="0"><%=@chart_data[:week_dates][6]%></option>
         </select>
       </div>
       <div class="three columns">
@@ -60,7 +61,7 @@
   var ctx = document.getElementById("pomodoro_time").getContext("2d");
 
   var data = {
-      labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      labels: <%=@chart_data[:week_dates]%>,
       datasets: [
           {
               label: "My First dataset",

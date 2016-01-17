@@ -6,7 +6,7 @@ u2 = User.new(:email => 'patrick.aebischer@epfl.ch', :first_name => 'Patrick', :
 u2.password = "patrick"
 u2.password_confirmation = "patrick"
 u2.save
-p1 = Pomodoro.new()
+p1 = Pomodoro.new(:h => Time.now())
 u1.add_pomodoro(p1)
 u2.add_pomodoro(p1)
 #puts User[:id => 1].email
