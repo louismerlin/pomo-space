@@ -7,41 +7,16 @@
     <div class="row">
       <div class="two columns">
         <select style="text-align:center" class="u-full-width" name="hour">
-          <option value="0">00h</option>
-          <option value="1">01h</option>
-          <option value="2">02h</option>
-          <option value="3">03h</option>
-          <option value="4">04h</option>
-          <option value="5">05h</option>
-          <option value="6">06h</option>
-          <option value="7">07h</option>
-          <option value="8">08h</option>
-          <option value="9">09h</option>
-          <option value="10">10h</option>
-          <option value="11">11h</option>
-          <option value="12">12h</option>
-          <option value="13">13h</option>
-          <option value="14">14h</option>
-          <option value="15">15h</option>
-          <option value="16">16h</option>
-          <option value="17">17h</option>
-          <option value="18">18h</option>
-          <option value="19">19h</option>
-          <option value="20">20h</option>
-          <option value="21">21h</option>
-          <option value="22">22h</option>
-          <option value="23">23h</option>
+          <% for i in 0..23 do %>
+            <option value="<%=i%>"><%=i%>h</option>
+          <%end%>
         </select>
       </div>
       <div class="four columns">
         <select class="u-full-width" name="day" style="text-align:center">
-          <option value="1"><%=@chart_data[:week_dates][0]%></option>
-          <option value="2"><%=@chart_data[:week_dates][1]%></option>
-          <option value="3"><%=@chart_data[:week_dates][2]%></option>
-          <option value="4"><%=@chart_data[:week_dates][3]%></option>
-          <option value="5"><%=@chart_data[:week_dates][4]%></option>
-          <option value="6"><%=@chart_data[:week_dates][5]%></option>
-          <option value="0"><%=@chart_data[:week_dates][6]%></option>
+          <%for i in 0..6 do%>
+            <option value="<%=i%>"><%=@chart_data[:week_dates][i]%></option>
+          <%end%>
         </select>
       </div>
       <div class="three columns">

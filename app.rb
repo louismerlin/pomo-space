@@ -36,7 +36,7 @@ class Trackodoro < Sinatra::Base
   end
 
   post "/unauthenticated" do
-    session[:temp] = "Wrong username or password"
+    session[:temp] = "Invalid username or password"
     redirect "/login"
   end
 
