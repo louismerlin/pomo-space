@@ -74,8 +74,12 @@ class Trackodoro < Sinatra::Base
 
   post "/add" do
     check_authentication
-    puts Time.at(params[:day].to_i)
-    User[current_user].add_pomodoro(Pomodoro.new(:h => Time.at(params[:day].to_i)))
+    p_time_a = Time.at(params[:day].to_i).to_a
+    p_time_a[0] = 0
+    p_time_a[1] = 0
+    p_time_a[2] = params[:hour].to_i
+    p_time = Time.local(*p_time_a)
+    User[current_user].add_pomodoro(Pomodoro.new(:h => p_time))
     redirect back
   end
 
