@@ -67,19 +67,15 @@ class Trackodoro < Sinatra::Base
     @chart_data = {
       # CAREFUL NO SUPPORT FOR NEW YEAR !!
       week_pomodoros: @user.pomodoros.map{|p| p.h.year==now.year && p.h.yday.between?(now.yday, now.yday-6) },
-      week_dates: (Array.new(7) {|d| (now-86400*d).day}).reverse,
+      week_dates: (Array.new(7) {|d| (now-86400*d)}).reverse,
     }
     erb :'users/index', :layout => :'users/layout'
   end
 
   post "/add" do
     check_authentication
-    p_time = Time.new().to_a
-    p_time[0] = "0"
-    p_time[1] = params[:minute].to_s
-    p_time[3] = params[:day].to_s
-    puts Time.local(*p_time)
-    User[current_user].add_pomodoro(Pomodoro.new(:h => Time.local(*p_time)))
+    puts Time.at(params[:day].to_i)
+    User[current_user].add_pomodoro(Pomodoro.new(:h => Time.at(params[:day].to_i)))
     redirect back
   end
 

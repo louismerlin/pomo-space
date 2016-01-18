@@ -15,7 +15,7 @@
       <div class="four columns">
         <select class="u-full-width" name="day" style="text-align:center">
           <%for i in 0..6 do%>
-            <option value="<%=i%>"><%=@chart_data[:week_dates][i]%></option>
+            <option value="<%=@chart_data[:week_dates][i].to_i%>"><%=@chart_data[:week_dates][i].day%></option>
           <%end%>
         </select>
       </div>
@@ -36,7 +36,7 @@
   var ctx = document.getElementById("pomodoro_time").getContext("2d");
 
   var data = {
-      labels: <%=@chart_data[:week_dates]%>,
+      labels: <%=@chart_data[:week_dates].map{|d| d.day}%>,
       datasets: [
           {
               label: "My First dataset",
