@@ -65,8 +65,8 @@ class Trackodoro < Sinatra::Base
     @user = User[current_user]
     now = Time.now()
     @chart_data = {
-      # CAREFUL NO SUPPORT FOR NEW YEAR !!
-      week_pomodoros: @user.pomodoros.map{|p| p.h.year==now.year && p.h.yday.between?(now.yday, now.yday-6) },
+      week_pomodoros: @user.pomodoros.select{|p| p.h.year==now.year && p.h.yday.between?(now.yday-6, now.yday) },
+      week_yday: (Array.new(7) {|d| (now-86400*d).yday}).reverse,
       week_dates: (Array.new(7) {|d| (now-86400*d)}).reverse,
     }
     erb :'users/index', :layout => :'users/layout'

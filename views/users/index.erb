@@ -34,5 +34,6 @@
 <script src="/javascript/index.js"/></script>
 <script>
   data.labels = <%=@chart_data[:week_dates].map{|d| d.day}%>;
+  data.datasets[0].data = <%= @chart_data[:week_pomodoros]!=nil ? Array.new(7){|i| @chart_data[:week_pomodoros].select{|p| p.h.yday == @chart_data[:week_yday][i]}.count} : Array.new(7, 0)%>;
   var pomodoro_time = new Chart(ctx).Line(data,options);
 </script>
