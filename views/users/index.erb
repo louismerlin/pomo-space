@@ -2,6 +2,7 @@
 <p>You can check out your progress right here</p>
 <% c = @chart_data[:week_pomodoros].count %>
 <p>You have completed <%= c > 0 ? c : "no" %> pomodoro<%= "s" if @chart_data[:week_pomodoros].count >1%> this week.</p>
+<p><%= @user.pomodoros.select{|p| p.tags.include?(Tag.first(:title => "Code"))}.count %>
 <div class="row">
   <form action="/add" method="post" class="slim-form">
     <div class="row">

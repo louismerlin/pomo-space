@@ -42,5 +42,7 @@ DB.create_table! :tags do
   #String      :color
 end
 
+DB.create_join_table(:pomodoro_id=>:pomodoros, :tag_id=>:tags)
+
 
 require './populate.rb' if CONFIG['development']
