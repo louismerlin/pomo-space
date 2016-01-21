@@ -21,4 +21,15 @@ var options = {
   // Boolean - Whether to animate the chart
   animation: false,
 
+  // Boolean - If we want to override with a hard coded scale
+  scaleOverride: true,
+
+  // ** Required if scaleOverride is true **
+  // Number - The number of steps in a hard coded scale
+  scaleSteps: 1,
+  // Number - The value jump in the hard coded scale
+  scaleStepWidth: 1,
+  // Number - The scale starting value
+  scaleStartValue: 0,
+
 };

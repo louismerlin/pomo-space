@@ -79,6 +79,7 @@ class Trackodoro < Sinatra::Base
     p_time_a[1] = 0
     p_time_a[2] = params[:hour].to_i
     p_time = Time.local(*p_time_a)
+    puts params[:tag]==""
     User[current_user].add_pomodoro(Pomodoro.new(:h => p_time))
     redirect back
   end
