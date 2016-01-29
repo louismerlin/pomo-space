@@ -1,5 +1,5 @@
 class Trackodoro < Sinatra::Base
-  #register Sinatra::Reloader if CONFIG['development']
+  register Sinatra::Reloader if CONFIG['development']
 
 
   ###

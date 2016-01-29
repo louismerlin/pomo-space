@@ -13,8 +13,7 @@ use Rack::Session::Cookie, :secret => CONFIG['cookie_secret']
 
 require 'sinatra/reloader' if CONFIG['development']
 
-require File.expand_path '../app.rb', __FILE__
-
+require './app.rb'
 require './models.rb'
 
 run Trackodoro

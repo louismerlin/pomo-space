@@ -1,4 +1,38 @@
-DB = Sequel.connect('sqlite://db/trackodoro.db')
+# MIGRATIONS
+
+if !File.exists?('db/trackodoro.db')
+
+  # IF YOU DO CHANGES HERE, DELETE THE FILE 'db/trackodoro.db'
+
+  DB = Sequel.connect('sqlite://db/trackodoro.db')
+
+  DB.create_table :users do
+    primary_key :id
+    String      :email
+    String      :password_digest
+    String      :first_name
+    String      :last_name
+  end
+
+  DB.create_table :pomodoros do
+    primary_key :id
+    DateTime    :h
+    foreign_key :user_id
+  end
+
+  DB.create_table :tags do
+    primary_key :id
+    String      :title
+    #String      :color
+  end
+
+  DB.create_join_table(:pomodoro_id=>:pomodoros, :tag_id=>:tags)
+
+  just_created = true
+else
+  Sequel.connect('sqlite://db/trackodoro.db')
+end
+
 
 # USERS
 
@@ -7,15 +41,6 @@ class User < Sequel::Model
   one_to_many :pomodoros
 end
 
-DB.create_table! :users do
-  primary_key :id
-  String      :email
-  String      :password_digest
-  String      :first_name
-  String      :last_name
-end
-
-
 # POMODOROS
 
 class Pomodoro < Sequel::Model
@@ -23,26 +48,10 @@ class Pomodoro < Sequel::Model
   many_to_many :tags
 end
 
-DB.create_table! :pomodoros do
-  primary_key :id
-  DateTime    :h
-  foreign_key :user_id
-end
-
-
 # TAGS
 
 class Tag < Sequel::Model
   many_to_many :pomodoros
 end
 
-DB.create_table! :tags do
-  primary_key :id
-  String      :title
-  #String      :color
-end
-
-DB.create_join_table!(:pomodoro_id=>:pomodoros, :tag_id=>:tags)
-
-
-require './populate.rb' if CONFIG['development']
+require './populate.rb' if CONFIG['development'] if just_created
