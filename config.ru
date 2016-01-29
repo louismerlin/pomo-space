@@ -1,4 +1,4 @@
-puts '~~~ TRACKODORO ~~~'
+puts '~~~ PomoSpace ~~~'
 
 require 'sinatra'
 require 'yaml'
@@ -16,4 +16,4 @@ require 'sinatra/reloader' if CONFIG['development']
 require './app.rb'
 require './models.rb'
 
-run Trackodoro
+run PomoSpace

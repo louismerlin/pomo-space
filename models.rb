@@ -1,10 +1,10 @@
 # MIGRATIONS
 
-if !File.exists?('db/trackodoro.db')
+if !File.exists?("db/#{CONFIG[database]}.db")
 
-  # IF YOU DO CHANGES HERE, DELETE THE FILE 'db/trackodoro.db'
+  # IF YOU DO CHANGES HERE, DELETE THE FILE 'db/pomospace.db'
 
-  DB = Sequel.connect('sqlite://db/trackodoro.db')
+  DB = Sequel.connect("sqlite://#{CONFIG[database]}")
 
   DB.create_table :users do
     primary_key :id
@@ -30,7 +30,7 @@ if !File.exists?('db/trackodoro.db')
 
   just_created = true
 else
-  Sequel.connect('sqlite://db/trackodoro.db')
+  Sequel.connect("sqlite://CONFIG[database]")
 end
 
 

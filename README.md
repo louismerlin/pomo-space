@@ -1,2 +1,2 @@
-# trackodoro
+# PomoSpace
 Tracking those pomodoros

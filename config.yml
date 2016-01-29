@@ -2,4 +2,4 @@ cookie_secret: hellogithub
 
 development: true
 
-database: db/trackodoro.db
+database: db/pomospace.db

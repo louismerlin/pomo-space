@@ -1,4 +1,4 @@
-class Trackodoro < Sinatra::Base
+class PomoSpace < Sinatra::Base
   register Sinatra::Reloader if CONFIG['development']
 
 
@@ -91,7 +91,7 @@ class Trackodoro < Sinatra::Base
 
   use Warden::Manager do |manager|
     manager.default_strategies :password
-    manager.failure_app = Trackodoro
+    manager.failure_app = PomoSpace
     manager.serialize_into_session {|user| user.id}
     manager.serialize_from_session {|id| User.get(id)}
   end
