@@ -24,6 +24,9 @@ var options = {
   // Boolean - If we want to override with a hard coded scale
   scaleOverride: true,
 
+  // Boolean - whether or not the chart should be responsive and resize when the browser does.
+  responsive: true,
+
   // ** Required if scaleOverride is true **
   // Number - The number of steps in a hard coded scale
   scaleSteps: 1,

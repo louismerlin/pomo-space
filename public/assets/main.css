@@ -79,6 +79,8 @@ h1 {
 #main-wrapper {
   max-width: 800px;
   margin: 15px auto 15px auto;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .slim-form {
