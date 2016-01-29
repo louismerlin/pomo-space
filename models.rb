@@ -1,10 +1,10 @@
 # MIGRATIONS
 
-if !File.exists?("db/#{CONFIG[database]}.db")
+if !File.exists?("#{CONFIG['database']}")
 
   # IF YOU DO CHANGES HERE, DELETE THE FILE 'db/pomospace.db'
 
-  DB = Sequel.connect("sqlite://#{CONFIG[database]}")
+  DB = Sequel.connect("sqlite://#{CONFIG['database']}")
 
   DB.create_table :users do
     primary_key :id
@@ -30,7 +30,7 @@ if !File.exists?("db/#{CONFIG[database]}.db")
 
   just_created = true
 else
-  Sequel.connect("sqlite://CONFIG[database]")
+  Sequel.connect("sqlite://#{CONFIG['database']}")
 end
 
 
