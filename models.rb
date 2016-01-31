@@ -12,6 +12,7 @@ if !File.exists?("#{CONFIG['database']}")
     String      :password_digest
     String      :first_name
     String      :last_name
+    TrueClass   :activated
   end
 
   DB.create_table :pomodoros do
@@ -30,7 +31,7 @@ if !File.exists?("#{CONFIG['database']}")
 
   just_created = true
 else
-  Sequel.connect("sqlite://#{CONFIG['database']}")
+  DB = Sequel.connect("sqlite://#{CONFIG['database']}")
 end
 
 

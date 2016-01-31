@@ -3,3 +3,7 @@ cookie_secret: hellogithub
 development: true
 
 database: db/pomospace.db
+
+# Will use this if development: false
+confirm_mail_from: ''
+confirm_mail_to: ''

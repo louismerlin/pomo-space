@@ -46,13 +46,28 @@ class PomoSpace < Sinatra::Base
 
   post "/signup" do
     if(params["email"].match(/\A[^@]+@[^@]+\Z/))
-      # Add :activated = false, and send mail to confirm
       @user = User.new(:email => params["email"])
       @user.password = params["password"]
       @user.password_confirmation = params["password"] # yes I know....
+      @user.activated = false
       @user.save
+      confirm_mail(params) if !CONFIG['development']
     end
     redirect "/login"
+  end
+
+
+  ###
+  ### ADMIN SIDE
+  ###
+
+  get "/dashboard" do
+    @users = User.where(:activated => false)
+    erb :'admin/dashboard', :layout => :'admin/layout'
+  end
+
+  def confirm_mail(params)
+    Pony.mail(:charset => 'utf-8', :to => "#{CONFIG['confirm_mail_to']}", :from => "#{CONFIG['confirm_mail_from']}", :subject => 'Confirm Him', :body => 'Can you confirm him ?', :via => :sendmail)
   end
 
 
