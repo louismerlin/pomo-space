@@ -12,7 +12,8 @@ if !File.exists?("#{CONFIG['database']}")
     String      :password_digest
     String      :first_name
     String      :last_name
-    TrueClass   :activated
+    TrueClass   :is_activated
+    String      :motivation, :size=>140
   end
 
   DB.create_table :pomodoros do

@@ -53,7 +53,11 @@ class PomoSpace < Sinatra::Base
       @user.save
       confirm_mail(params) if !CONFIG['development']
     end
-    redirect "/login"
+    redirect "/thankyou"
+  end
+
+  get "/thankyou" do
+    erb :'public/thankyou', :layout => :'public/layout'
   end
 
 
