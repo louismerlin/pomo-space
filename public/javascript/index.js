@@ -39,6 +39,7 @@ var options = {
 
 var tagsDiv = document.getElementById("tagsList");
 populateTags = function(tags){
+  tagsDiv.innerHTML = "";
   for(i in tags){
    d = document.createElement('li');
    d.innerHTML = tags[i];
@@ -49,5 +50,12 @@ populateTags = function(tags){
 fetcher("/tags", populateTags);
 
 createNewTag = function(){
-  console.log("Still need to write it :O");
+  var r = new XMLHttpRequest();
+  r.open("POST", "tags/new", true);
+  r.onreadystatechange = function () {
+    if (r.readyState != 4 || r.status != 200) return;
+    if (r.responseText == "validated") fetcher("/tags", populateTags);
+  };
+  r.send(document.getElementById("newTag").value);
+  document.getElementById("newTag").value = "";
 }

@@ -88,7 +88,6 @@ class PomoSpace < Sinatra::Base
       week_yday: (Array.new(7) {|d| (now-86400*d).yday}).reverse,
       week_dates: (Array.new(7) {|d| (now-86400*d)}).reverse,
     }
-    puts @user.tags[0].title
     erb :'users/index', :layout => :'users/layout'
   end
 
@@ -99,6 +98,19 @@ class PomoSpace < Sinatra::Base
   get "/tags" do
     check_authentication
     User[current_user].tags.map{|t| t.title}.to_json
+  end
+
+  post "/tags/new" do
+    check_authentication
+    new_title = request.body.read
+    if (new_title!="" && User[current_user].tags.collect{ |t| t.title == new_title ? t : nil}.compact == [])
+      new_tag = Tag.new(title:new_title)
+      new_tag.save
+      User[current_user].add_tag(new_tag)
+      "validated"
+    else
+      "declined"
+    end
   end
 
   get "/pomo/:pomo_id" do
