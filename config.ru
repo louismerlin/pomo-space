@@ -7,6 +7,7 @@ require 'sequel_secure_password'
 require 'warden'
 require 'tilt/erb'
 require 'pony'
+require 'json'
 
 CONFIG =  YAML.load_file('config.yml')
 

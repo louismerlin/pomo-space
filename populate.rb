@@ -11,10 +11,13 @@ u2.save
 p1 = Pomodoro.new(:h => Time.now())
 p1.save
 u1.add_pomodoro(p1)
-u2.add_pomodoro(p1) # will go from u1 to u2
 
 t1 = Tag.new(:title => "Code")
+t2 = Tag.new(title: "Analyse")
 t1.save
+t2.save
+u1.add_tag(t1)
+u1.add_tag(t2)
 p1.add_tag(t1)
 
 #puts User[:id => 1].email

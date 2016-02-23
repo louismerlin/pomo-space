@@ -20,7 +20,7 @@ h1 {
 
 #header {
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
   padding-top: 20px;
 }
@@ -81,7 +81,7 @@ h1 {
 /* Main container */
 
 #main-wrapper {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 15px auto 15px auto;
   padding-left: 4px;
   padding-right: 4px;

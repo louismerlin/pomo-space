@@ -88,7 +88,21 @@ class PomoSpace < Sinatra::Base
       week_yday: (Array.new(7) {|d| (now-86400*d).yday}).reverse,
       week_dates: (Array.new(7) {|d| (now-86400*d)}).reverse,
     }
+    puts @user.tags[0].title
     erb :'users/index', :layout => :'users/layout'
+  end
+
+  ###
+  ### USER SIDE - API
+  ###
+
+  get "/tags" do
+    check_authentication
+    User[current_user].tags.map{|t| t.title}.to_json
+  end
+
+  get "/pomo/:pomo_id" do
+
   end
 
   post "/add" do

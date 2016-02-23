@@ -36,3 +36,16 @@ var options = {
   scaleStartValue: 0,
 
 };
+
+var tagsDiv = document.getElementById("tags");
+populateTags = function(tags){
+  u = document.createElement('ul')
+  tagsDiv.appendChild(u);
+  for(i in tags){
+   d = document.createElement('li');
+   d.innerHTML = tags[i];
+   u.appendChild(d);
+  }
+};
+
+fetcher("/tags", populateTags);

@@ -25,6 +25,8 @@ if !File.exists?("#{CONFIG['database']}")
   DB.create_table :tags do
     primary_key :id
     String      :title
+    foreign_key :user_id
+    #foreign_key :tag_id, name: 'parent' #parent id
     #String      :color
   end
 
@@ -41,6 +43,7 @@ end
 class User < Sequel::Model
   plugin :secure_password
   one_to_many :pomodoros
+  one_to_many :tags
 end
 
 # POMODOROS
@@ -53,6 +56,8 @@ end
 # TAGS
 
 class Tag < Sequel::Model
+  #many_to_one :tag
+  many_to_one :user
   many_to_many :pomodoros
 end
 

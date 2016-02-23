@@ -1,36 +1,45 @@
-<h1>Hello <%= @user.first_name %>.</h1>
-<p>You can check out your progress right here</p>
-<% c = @chart_data[:week_pomodoros].count %>
-<p>You have completed <%= c > 0 ? c : "no" %> pomodoro<%= "s" if @chart_data[:week_pomodoros].count >1%> this week.</p>
-<p><%= @user.pomodoros.select{|p| p.tags.include?(:tags => Tag.first(:title => "Code"))}.count %>
 <div class="row">
-  <form action="/add" method="post" class="slim-form">
+  <div class="nine columns">
+    <h5>Hello <%= @user.first_name %>.</h5>
+    <p>You can check out your progress right here</p>
+    <% c = @chart_data[:week_pomodoros].count %>
+    <p>You have completed <%= c > 0 ? c : "no" %> pomodoro<%= "s" if @chart_data[:week_pomodoros].count >1%> this week.</p>
+    <p><%= @user.pomodoros.select{|p| p.tags.include?(:tags => Tag.first(:title => "Code"))}.count %>
     <div class="row">
-      <div class="two columns">
-        <select style="text-align:center" class="u-full-width" name="hour">
-          <% for i in 0..23 do %>
-            <option value="<%=i%>"><%=i%>h</option>
-          <%end%>
-        </select>
-      </div>
-      <div class="four columns">
-        <select class="u-full-width" name="day" style="text-align:center">
-          <%for i in 0..6 do%>
-            <option value="<%=@chart_data[:week_dates][i].to_i%>"><%=@chart_data[:week_dates][i].day%></option>
-          <%end%>
-        </select>
-      </div>
-      <div class="three columns">
-        <input class="u-full-width" name="tag" placeholder="Tag" type="text"/>
-      </div>
-      <div class="three columns">
-        <button class="u-full-width" type="submit">Add</button>
-      </div>
+      <form action="/add" method="post" class="slim-form">
+        <div class="row">
+          <div class="two columns">
+            <select style="text-align:center" class="u-full-width" name="hour">
+              <% for i in 0..23 do %>
+                <option value="<%=i%>"><%=i%>h</option>
+              <%end%>
+            </select>
+          </div>
+          <div class="four columns">
+            <select class="u-full-width" name="day" style="text-align:center">
+              <%for i in 0..6 do%>
+                <option value="<%=@chart_data[:week_dates][i].to_i%>"><%=@chart_data[:week_dates][i].day%></option>
+              <%end%>
+            </select>
+          </div>
+          <div class="three columns">
+            <input class="u-full-width" name="tag" placeholder="Tag" type="text"/>
+          </div>
+          <div class="three columns">
+            <button class="u-full-width" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-<div class="row">
-  <canvas id="pomodoro_time" width="800" height="400"></canvas>
+    <div class="row">
+      <canvas id="pomodoro_time"></canvas>
+    </div>
+  </div>
+  <div class="three columns" style="border-left:1px solid #eee;">
+    <div class="container" id="tags">
+      <h1>Tags</h1>
+    </div>
+  </div>
 </div>
 <script src="/javascript/index.js"/></script>
 <script>
