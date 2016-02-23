@@ -36,8 +36,17 @@
     </div>
   </div>
   <div class="three columns" style="border-left:1px solid #eee;">
-    <div class="container" id="tags">
+    <div class="container">
       <h1>Tags</h1>
+      <ul id="tagsList"></ul>
+      <form onsubmit="createNewTag()" action="#">
+        <div class="row">
+          <input class="u-full-width" id="newTag" placeholder="Create a new tag" type="text"/>
+        </div>
+        <div class="row">
+          <button class="u-full-width" type="submit">Add</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

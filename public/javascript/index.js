@@ -37,15 +37,17 @@ var options = {
 
 };
 
-var tagsDiv = document.getElementById("tags");
+var tagsDiv = document.getElementById("tagsList");
 populateTags = function(tags){
-  u = document.createElement('ul')
-  tagsDiv.appendChild(u);
   for(i in tags){
    d = document.createElement('li');
    d.innerHTML = tags[i];
-   u.appendChild(d);
+   tagsDiv.appendChild(d);
   }
 };
 
 fetcher("/tags", populateTags);
+
+createNewTag = function(){
+  console.log("Still need to write it :O");
+}
