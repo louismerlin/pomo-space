@@ -42,7 +42,7 @@ populateTags = function(tags){
   tagsDiv.innerHTML = "";
   for(i in tags){
    d = document.createElement('li');
-   d.innerHTML = tags[i];
+   d.innerHTML = tags[i].title + '<a class="icon" onclick="deleteTag(' + tags[i].id + ')" style="float:right"><i class="fa fa-trash-o"></i></a>';
    tagsDiv.appendChild(d);
   }
 };
@@ -58,4 +58,14 @@ createNewTag = function(){
   };
   r.send(document.getElementById("newTag").value);
   document.getElementById("newTag").value = "";
+}
+
+deleteTag = function(id) {
+  var r = new XMLHttpRequest();
+  r.open("POST", "tags/delete", true);
+  r.onreadystatechange = function () {
+    if (r.readyState != 4 || r.status != 200) return;
+    if (r.responseText == "validated") fetcher("/tags", populateTags);
+  };
+  r.send(id);
 }

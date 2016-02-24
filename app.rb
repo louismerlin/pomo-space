@@ -97,16 +97,28 @@ class PomoSpace < Sinatra::Base
 
   get "/tags" do
     check_authentication
-    User[current_user].tags.map{|t| t.title}.to_json
+    User[current_user].tags.map{|t| {title:t.title, id:t.id}}.to_json
   end
 
   post "/tags/new" do
     check_authentication
     new_title = request.body.read
-    if (new_title!="" && User[current_user].tags.collect{ |t| t.title == new_title ? t : nil}.compact == [])
+    if (new_title!="" && !User[current_user].tags.any?{ |t| t.title == new_title})
       new_tag = Tag.new(title:new_title)
       new_tag.save
       User[current_user].add_tag(new_tag)
+      "validated"
+    else
+      "declined"
+    end
+  end
+
+  post "/tags/delete" do
+    check_authentication
+    to_delete = request.body.read.to_i
+    t = User[current_user].tags_dataset.where(:id => to_delete)
+    if(t!=nil)
+      t.delete
       "validated"
     else
       "declined"
